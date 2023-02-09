@@ -1,4 +1,4 @@
-// TaskManger.java - Runner Program
+// TaskManager.java - By: Celvis#5477
 
 /*TODO
  * Loop it
@@ -41,6 +41,7 @@ public class TaskManager {
                 try {
                     Thread.sleep(15);
                 } catch (InterruptedException e) {
+                    scan.close();
                     e.printStackTrace();
                 }
             }
@@ -66,6 +67,7 @@ public class TaskManager {
                     try {
                         Thread.sleep(15);
                     } catch (InterruptedException e) {
+                        scan.close();
                         e.printStackTrace();
                     }
                 }
@@ -77,9 +79,11 @@ public class TaskManager {
                     fileWrite.write(userName + "'s Tasklist:\n\nTaskOne: " + taskOne);
                     fileWrite.close();
                 } catch (IOException e) {
+                    scan.close();
                     System.out.println("There was an error creating your tasklist file.");
                     e.printStackTrace();
                 }
+                scan.close();
                 System.exit(0);
             } else {
                 // End of taskTwo
@@ -100,6 +104,7 @@ public class TaskManager {
                     try {
                         Thread.sleep(15);
                     } catch (InterruptedException e) {
+                        scan.close();
                         e.printStackTrace();
                     }
                 }
@@ -113,6 +118,7 @@ public class TaskManager {
                     fileWrite.close();
                 } catch (IOException e) {
                     System.out.println("There was an error creating your tasklist file.");
+                    scan.close();
                     e.printStackTrace();
                 }
                 scan.close();
