@@ -1,7 +1,8 @@
 // TaskManager.java - By: Celvis#5477
+// Version: 0.0.2
 
 /*TODO
- * Loop it
+ * Fix "end" on the start of the program (It shouldn't create a file when you type "end" on the first tasklist creation option)
  */
 
 // Import
@@ -9,10 +10,17 @@ import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class TaskManager {
+public class task_Runner {
     public static void main(String[] args) {
         // Scanner
         Scanner scan = new Scanner(System.in);
+
+        // Variables
+        int taskListNumber = 0;
+        int endTaskList = 5;
+
+        // Array List
+        char[] animationChars = new char[] { '|', '/', '-', '\\' };
 
         // Menu Display
         System.out.println(
@@ -26,41 +34,15 @@ public class TaskManager {
         // Welcome!
         System.out.println("\nWelcome " + userName + "!");
 
-        // Start of taskOne
-        System.out.print("Enter the first task name!\n=> ");
-        String taskOne = scan.nextLine();
+        // Start of TaskList
+        while (endTaskList == 5) {
+            System.out.print("Enter task name!\n=> ");
+            String taskName = scan.nextLine();
 
-        // Check 1
-        if (taskOne.equals("end") || taskOne.equals("END")) {
-            // Load exit on "end" command
-            System.out.println("\n");
-            char[] animationChars = new char[] { '|', '/', '-', '\\' };
-
-            for (int i = 0; i <= 100; i++) {
-                System.out.print("Ending Task Manager... " + i + "% " + animationChars[i % 4] + "\r");
-                try {
-                    Thread.sleep(15);
-                } catch (InterruptedException e) {
-                    scan.close();
-                    e.printStackTrace();
-                }
-            }
-            System.out.println("\nTask Manager has been successfully terminated!\nNo tasklist was created.");
-            scan.close();
-            System.exit(0);
-        } else {
-            // End of taskOne
-            System.out.println("(Task: \"" + taskOne + "\" was successfully added to the list!)\n");
-
-            // Start of taskTwo
-            System.out.print("Enter the second task name!\n=> ");
-            String taskTwo = scan.nextLine();
-
-            // Check 2
-            if (taskTwo.equals("end") || taskTwo.equals("END")) {
+            // Check for "end" command
+            if (taskName.toLowerCase().equals("end")) {
                 // Load exit on "end" command
                 System.out.println("\n");
-                char[] animationChars = new char[] { '|', '/', '-', '\\' };
 
                 for (int i = 0; i <= 100; i++) {
                     System.out.print("Ending Task Manager... " + i + "% " + animationChars[i % 4] + "\r");
@@ -73,57 +55,126 @@ public class TaskManager {
                 }
                 System.out.println(
                         "\nTask Manager has been successfully terminated!\n!! A Task list file was created under the name \""
-                                + userName + "'s Tasklist.txt !!\n");
-                try {
-                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt");
-                    fileWrite.write(userName + "'s Tasklist:\n\nTaskOne: " + taskOne);
-                    fileWrite.close();
-                } catch (IOException e) {
-                    scan.close();
-                    System.out.println("There was an error creating your tasklist file.");
-                    e.printStackTrace();
-                }
-                scan.close();
-                System.exit(0);
-            } else {
-                // End of taskTwo
-                System.out.println("(Task: \"" + taskTwo + "\" was successfully added to the list!)\n");
-
-                // Start of taskThree
-                System.out.print("Enter the third task name!\n=> ");
-                String taskThree = scan.nextLine();
-                // Check 3
-                // Load exit on the end of task creation
-                // output
-                System.out.println("(Task: \"" + taskThree + "\" was successfully added to the list!)");
-                System.out.println("\n");
-                char[] animationChars = new char[] { '|', '/', '-', '\\' };
-
-                for (int i = 0; i <= 100; i++) {
-                    System.out.print("Ending Task Manager... " + i + "% " + animationChars[i % 4] + "\r");
-                    try {
-                        Thread.sleep(15);
-                    } catch (InterruptedException e) {
-                        scan.close();
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println(
-                        "\nTask Manager has been successfully terminated!\n!! A Task list file was created under the name \""
-                                + userName + "'s Tasklist.txt !!\n");
-                try {
-                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt");
-                    fileWrite.write(userName + "'s Tasklist:\n\nTaskOne: " + taskOne + "\nTaskTwo: " + taskTwo
-                            + "\nTaskThree: " + taskThree);
-                    fileWrite.close();
-                } catch (IOException e) {
-                    System.out.println("There was an error creating your tasklist file.");
-                    scan.close();
-                    e.printStackTrace();
-                }
+                                + userName + "'s Tasklist.txt\" !!\n");
                 scan.close();
                 System.exit(0);
             }
+
+            // Task added to list
+            System.out.println("(Task: \"" + taskName + "\" was successfully added to the list!)\n");
+
+            // End of Task creation
+            // Increment task number
+            taskListNumber++;
+
+            // Create TaskList file
+            if (taskListNumber == 1) {
+                try {
+                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt");
+                    fileWrite.write(userName + "'s Tasklist:\n\nTask " + taskListNumber + ": " + taskName);
+                    fileWrite.close();
+                } catch (IOException e) {
+                    System.out.println("There was an error creating your tasklist file.");
+                    scan.close();
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt", true);
+                    fileWrite.write("\nTask " + taskListNumber + ": " + taskName);
+                    fileWrite.close();
+                } catch (IOException e) {
+                    System.out.println("There was an error editing your tasklist file.");
+                    scan.close();
+                    e.printStackTrace();
+                }
+            }
         }
+        // End
+        scan.close();
+        System.exit(0);
     }
+    /* ehhhh removed lmao
+     * else {
+     * // End of taskOne
+     * System.out.println("(Task: \"" + taskOne +
+     * "\" was successfully added to the list!)\n");
+     * 
+     * // Start of taskTwo
+     * System.out.print("Enter the second task name!\n=> ");
+     * String taskTwo = scan.nextLine();
+     * 
+     * // Check 2
+     * if (taskTwo.equals("end") || taskTwo.equals("END")) {
+     * // Load exit on "end" command
+     * System.out.println("\n");
+     * 
+     * for (int i = 0; i <= 100; i++) {
+     * System.out.print("Ending Task Manager... " + i + "% " + animationChars[i % 4]
+     * + "\r");
+     * try {
+     * Thread.sleep(15);
+     * } catch (InterruptedException e) {
+     * scan.close();
+     * e.printStackTrace();
+     * }
+     * }
+     * System.out.println(
+     * "\nTask Manager has been successfully terminated!\n!! A Task list file was created under the name \""
+     * + userName + "'s Tasklist.txt !!\n");
+     * try {
+     * FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt");
+     * fileWrite.write(userName + "'s Tasklist:\n\nTaskOne: " + taskOne);
+     * fileWrite.close();
+     * } catch (IOException e) {
+     * scan.close();
+     * System.out.println("There was an error creating your tasklist file.");
+     * e.printStackTrace();
+     * }
+     * scan.close();
+     * System.exit(0);
+     * } else {
+     * // End of taskTwo
+     * System.out.println("(Task: \"" + taskTwo +
+     * "\" was successfully added to the list!)\n");
+     * 
+     * // Start of taskThree
+     * System.out.print("Enter the third task name!\n=> ");
+     * String taskThree = scan.nextLine();
+     * // Check 3
+     * // Load exit on the end of task creation
+     * // output
+     * System.out.println("(Task: \"" + taskThree +
+     * "\" was successfully added to the list!)");
+     * System.out.println("\n");
+     * 
+     * for (int i = 0; i <= 100; i++) {
+     * System.out.print("Ending Task Manager... " + i + "% " + animationChars[i % 4]
+     * + "\r");
+     * try {
+     * Thread.sleep(15);
+     * } catch (InterruptedException e) {
+     * scan.close();
+     * e.printStackTrace();
+     * }
+     * }
+     * System.out.println(
+     * "\nTask Manager has been successfully terminated!\n!! A Task list file was created under the name \""
+     * + userName + "'s Tasklist.txt !!\n");
+     * try {
+     * FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt");
+     * fileWrite.write(userName + "'s Tasklist:\n\nTaskOne: " + taskOne +
+     * "\nTaskTwo: " + taskTwo
+     * + "\nTaskThree: " + taskThree);
+     * fileWrite.close();
+     * } catch (IOException e) {
+     * System.out.println("There was an error creating your tasklist file.");
+     * scan.close();
+     * e.printStackTrace();
+     * }
+     * scan.close();
+     * System.exit(0);
+     * }
+     * }
+     */
 }
