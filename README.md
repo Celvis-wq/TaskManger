@@ -1,5 +1,5 @@
 # TaskManager.java
-# Version: 0.0.1
+# Version: 0.0.2
 
 ## Purpose:
 
@@ -26,4 +26,9 @@
 ---
 
 ### Changelog:
-None at the moment
+Change:
+1. Looped program
+2. Removed unnecessary lines
+
+TODO:
+1. Fix "end" on the start of the program (It shouldn't create a file when you type "end" on the first tasklist creation option)
