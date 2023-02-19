@@ -1,4 +1,4 @@
-// TaskManager.java - Runner Program
+// TaskManager.java - By Celvis#5477
 // Version: 0.0.3
 
 /*TODO
@@ -10,7 +10,7 @@ import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class task_Runner {
+public class TaskManager {
     public static void main(String[] args) {
         // Scanner
         Scanner scan = new Scanner(System.in);
