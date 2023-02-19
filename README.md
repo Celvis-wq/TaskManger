@@ -1,5 +1,5 @@
 # TaskManager.java
-# Version: 0.0.2
+# Version: 0.0.3
 
 ## Purpose:
 
@@ -27,8 +27,9 @@
 
 ### Changelog:
 Change:
-1. Looped program
-2. Removed unnecessary lines
+1. Changed the endTaskList variable to isRunning, now a boolean variable.
+2. Changed the if statement condition to use taskName.equalsIgnoreCase("end") instead of taskName.toLowerCase().equals("end").
+3. Simplified the file-writing code by using the ternary operator to determine whether to append or create a new file.
 
 TODO:
 1. Fix "end" on the start of the program (It shouldn't create a file when you type "end" on the first tasklist creation option)
