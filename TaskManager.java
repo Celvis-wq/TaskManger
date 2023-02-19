@@ -1,5 +1,5 @@
-// TaskManager.java - By: Celvis#5477
-// Version: 0.0.2
+// TaskManager.java - Runner Program
+// Version: 0.0.3
 
 /*TODO
  * Fix "end" on the start of the program (It shouldn't create a file when you type "end" on the first tasklist creation option)
@@ -10,16 +10,16 @@ import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class TaskManager {
+public class task_Runner {
     public static void main(String[] args) {
         // Scanner
         Scanner scan = new Scanner(System.in);
 
         // Variables
         int taskListNumber = 0;
-        int endTaskList = 5;
+        boolean isRunning = true;
 
-        // Array List
+        // List
         char[] animationChars = new char[] { '|', '/', '-', '\\' };
 
         // Menu Display
@@ -35,7 +35,7 @@ public class TaskManager {
         System.out.println("\nWelcome " + userName + "!");
 
         // Start of TaskList
-        while (endTaskList == 5) {
+        while (isRunning) {
             System.out.print("Enter task name!\n=> ");
             String taskName = scan.nextLine();
 
@@ -56,45 +56,29 @@ public class TaskManager {
                 System.out.println(
                         "\nTask Manager has been successfully terminated!\n!! A Task list file was created under the name \""
                                 + userName + "'s Tasklist.txt\" !!\n");
-                scan.close();
-                System.exit(0);
-            }
-
-            // Task added to list
-            System.out.println("(Task: \"" + taskName + "\" was successfully added to the list!)\n");
-
-            // End of Task creation
-            // Increment task number
-            taskListNumber++;
-
-            // Create TaskList file
-            if (taskListNumber == 1) {
-                try {
-                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt");
-                    fileWrite.write(userName + "'s Tasklist:\n\nTask " + taskListNumber + ": " + taskName);
-                    fileWrite.close();
-                } catch (IOException e) {
-                    System.out.println("There was an error creating your tasklist file.");
-                    scan.close();
-                    e.printStackTrace();
-                }
+                isRunning = false;
             } else {
+                taskListNumber++;
+                System.out.println("(Task: \"" + taskName + "\" was successfully added to the list!)\n");
+
                 try {
-                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt", true);
-                    fileWrite.write("\nTask " + taskListNumber + ": " + taskName);
+                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt",
+                            taskListNumber == 1 ? false : true);
+                    fileWrite.write(
+                            taskListNumber == 1 ? userName + "'s Tasklist:\n\nTask " + taskListNumber + ": " + taskName
+                                    : "\nTask " + taskListNumber + ": " + taskName);
                     fileWrite.close();
                 } catch (IOException e) {
-                    System.out.println("There was an error editing your tasklist file.");
+                    System.out.println("There was an error creating/editing your tasklist file.");
                     scan.close();
                     e.printStackTrace();
                 }
             }
         }
-        // End
         scan.close();
         System.exit(0);
     }
-    /* ehhhh removed lmao
+    /*
      * else {
      * // End of taskOne
      * System.out.println("(Task: \"" + taskOne +
