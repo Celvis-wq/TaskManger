@@ -1,14 +1,16 @@
 // TaskManager.java - By Celvis#5477
-// Version: 0.0.3
+// Version: 0.0.4
 
 /*TODO
  * Fix "end" on the start of the program (It shouldn't create a file when you type "end" on the first tasklist creation option)
  */
 
 // Import
-import java.util.*;
+import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
 
 public class TaskManager {
     public static void main(String[] args) {
@@ -40,7 +42,10 @@ public class TaskManager {
             String taskName = scan.nextLine();
 
             // Check for "end" command
-            if (taskName.toLowerCase().equals("end")) {
+            if (taskName.equalsIgnoreCase("end")) {
+                if (taskListNumber == 0) {
+                    continue;
+                }
                 // Load exit on "end" command
                 System.out.println("\n");
 
@@ -49,7 +54,6 @@ public class TaskManager {
                     try {
                         Thread.sleep(15);
                     } catch (InterruptedException e) {
-                        scan.close();
                         e.printStackTrace();
                     }
                 }
@@ -62,15 +66,14 @@ public class TaskManager {
                 System.out.println("(Task: \"" + taskName + "\" was successfully added to the list!)\n");
 
                 try {
-                    FileWriter fileWrite = new FileWriter(userName + "'s Tasklist.txt",
-                            taskListNumber == 1 ? false : true);
+                    String fileName = userName + "'s Tasklist.txt";
+                    FileWriter fileWrite = new FileWriter(fileName, true);
                     fileWrite.write(
                             taskListNumber == 1 ? userName + "'s Tasklist:\n\nTask " + taskListNumber + ": " + taskName
                                     : "\nTask " + taskListNumber + ": " + taskName);
                     fileWrite.close();
                 } catch (IOException e) {
                     System.out.println("There was an error creating/editing your tasklist file.");
-                    scan.close();
                     e.printStackTrace();
                 }
             }
