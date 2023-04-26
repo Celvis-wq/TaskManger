@@ -1,5 +1,5 @@
 # TaskManager.java
-# Version: 0.0.3
+# Version: 0.0.4
 
 ## Purpose:
 
@@ -26,10 +26,12 @@
 ---
 
 ### Changelog:
-Change:
-1. Changed the endTaskList variable to isRunning, now a boolean variable.
-2. Changed the if statement condition to use taskName.equalsIgnoreCase("end") instead of taskName.toLowerCase().equals("end").
-3. Simplified the file-writing code by using the ternary operator to determine whether to append or create a new file.
+Changes:
+1. "end" on the start of the program bug should be fixed
+2. Removed the import statements for java.nio.file.Files and java.nio.file.Paths, as they are no longer needed
+3. Removed the check for file existence and file creation using Files.notExists and Files.createFile. It is now using FileWriter in append mode, which will create the file if it does not exist
+4. Reverted the FileWriter creation logic back to the original code, as it is more suitable for this specific use case
+5. Kept the equalsIgnoreCase change from the previous revision, as it is a more efficient and cleaner way to check for the "end" command
 
 TODO:
-1. Fix "end" on the start of the program (It shouldn't create a file when you type "end" on the first tasklist creation option)
+1. None as of now.
